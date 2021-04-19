@@ -1,0 +1,21 @@
+<div [formGroup]="solicitud">
+    <mat-card class="p-0">
+        <mat-card-title class="">
+            <div class="card-title-text">Add course</div>
+            <mat-divider></mat-divider>
+        </mat-card-title>
+        <mat-card-content>
+            <div fxLayout="row wrap" fxLayout.lt-sm="column">
+                <!-- TXT_COD_PERSONA-->
+                <div fxFlex="50" class="pr-1">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Name of course" formControlName="txtNameCourse" name="txtNameCourse">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="100" class="pr-0">
+                    <button mat-raised-button class="mat-primary pr-1" (click)="AddCourse()">Add</button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
