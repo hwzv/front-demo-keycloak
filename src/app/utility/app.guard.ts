@@ -20,17 +20,16 @@ export class AuthGuard extends KeycloakAuthGuard {
                 redirectUri: window.location.origin + state.url,
             });
         }
-        console.log('role restriction given at app-routing.module for this route', route.data.roles);
-        console.log('User roles coming after login from keycloak :', this.roles);
+        const requiredRoles = this.keycloak.getUserRoles();
+        console.log('User roles coming after login from keycloak :', requiredRoles);
         let token = this.keycloak.getToken();
         console.log('get token :', token);
         let profile = await this.keycloak.loadUserProfile();   
         console.log('get profile :',  profile);   
         this.ls.setItem(this.APP_PROFILE, profile);
         this.ls.setItem(this.APP_USER, profile.firstName + ' ' + profile.lastName);    
-        // Get the roles required from the route.
-        const requiredRoles = route.data.roles;
-        console.log('get roles :',  requiredRoles);   
+        var tokenParsed = this.keycloak.getKeycloakInstance().tokenParsed['resource_access'];
+        console.log('get roles from json :', tokenParsed);          
         // Allow the user to to proceed if no additional roles are required to access the route.
         if (!(requiredRoles instanceof Array) || requiredRoles.length === 0) {
             return true;
